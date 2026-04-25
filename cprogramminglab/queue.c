@@ -26,7 +26,12 @@
 queue_t *queue_new(void) {
     queue_t *q = malloc(sizeof(queue_t));
     /* What if malloc returned NULL? */
+    if (q == NULL) {
+        return NULL;
+    }
     q->head = NULL;
+    q->size = 0;
+    q->tail = NULL;
     return q;
 }
 
@@ -36,6 +41,16 @@ queue_t *queue_new(void) {
  */
 void queue_free(queue_t *q) {
     /* How about freeing the list elements and the strings? */
+    if (q == NULL) {
+        return;
+    }
+    list_ele_t *curr = q->head;
+    while (curr != NULL) {
+        list_ele_t *next = curr->next;
+        free(curr->value);
+        free(curr);
+        curr = next;
+    }
     /* Free queue structure */
     free(q);
 }
@@ -55,11 +70,27 @@ void queue_free(queue_t *q) {
 bool queue_insert_head(queue_t *q, const char *s) {
     list_ele_t *newh;
     /* What should you do if the q is NULL? */
+    if (q == NULL) {
+        return false;
+    }
     newh = malloc(sizeof(list_ele_t));
+    if (newh == NULL) {
+        return false;
+    }
     /* Don't forget to allocate space for the string and copy it */
+    newh->value = malloc(strlen(s) + 1);
     /* What if either call to malloc returns NULL? */
+    if (newh->value == NULL) {
+        free(newh);
+        return false;
+    }
+    strcpy(newh->value, s);
     newh->next = q->head;
     q->head = newh;
+    ++q->size;
+    if (q->tail == NULL) {
+        q->tail = newh;
+    }
     return true;
 }
 
@@ -78,7 +109,29 @@ bool queue_insert_head(queue_t *q, const char *s) {
 bool queue_insert_tail(queue_t *q, const char *s) {
     /* You need to write the complete code for this function */
     /* Remember: It should operate in O(1) time */
-    return false;
+    if (q == NULL) {
+        return false;
+    }
+    list_ele_t *newt = malloc(sizeof(list_ele_t));
+    if (newt == NULL) {
+        return false;
+    }
+    newt->value = malloc(strlen(s) + 1);
+    if (newt->value == NULL) {
+        free(newt);
+        return false;
+    }
+    strcpy(newt->value, s);
+    newt->next = NULL;
+    if (q->tail == NULL) {
+        q->head = newt;
+        q->tail = newt;
+    } else {
+        q->tail->next = newt;
+        q->tail = newt;
+    }
+    ++q->size;
+    return true;
 }
 
 /**
@@ -100,7 +153,21 @@ bool queue_insert_tail(queue_t *q, const char *s) {
  */
 bool queue_remove_head(queue_t *q, char *buf, size_t bufsize) {
     /* You need to fix up this code. */
-    q->head = q->head->next;
+    if (q == NULL || q->head == NULL) {
+        return false;
+    }
+    list_ele_t *oldh = q->head;
+    if (buf != NULL) {
+        strncpy(buf, oldh->value, bufsize - 1);
+        buf[bufsize - 1] = '\0';
+    }
+    q->head = oldh->next;
+    if (q->head == NULL) {
+        q->tail = NULL;
+    }
+    free(oldh->value);
+    free(oldh);
+    --q->size;
     return true;
 }
 
@@ -117,7 +184,10 @@ bool queue_remove_head(queue_t *q, char *buf, size_t bufsize) {
 size_t queue_size(queue_t *q) {
     /* You need to write the code for this function */
     /* Remember: It should operate in O(1) time */
-    return 0;
+    if (q == NULL) {
+        return 0;
+    }
+    return q->size;
 }
 
 /**
@@ -131,4 +201,19 @@ size_t queue_size(queue_t *q) {
  */
 void queue_reverse(queue_t *q) {
     /* You need to write the code for this function */
+    if (q == NULL || q->size == 0) {
+        return;
+    }
+    list_ele_t *curr = q->head;
+    list_ele_t *prev = NULL;
+    list_ele_t *next = NULL;
+    while (curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    q->tail = q->head;
+    q->tail->next = NULL;
+    q->head = prev;
 }
