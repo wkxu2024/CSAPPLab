@@ -2,7 +2,7 @@
 
 ## Lab Assignments
 
-- [ ] [C Programming Lab]
+- [x] [C Programming Lab]
 - [x] [Data Lab]
 - [ ] [Bomb Lab]
 - [ ] [Attack Lab]
