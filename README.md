@@ -4,7 +4,7 @@
 
 - [x] [C Programming Lab]
 - [x] [Data Lab]
-- [ ] [Bomb Lab]
+- [x] [Bomb Lab]
 - [ ] [Attack Lab]
 - [ ] [Buffer Lab]
 - [ ] [Architecture Lab]
