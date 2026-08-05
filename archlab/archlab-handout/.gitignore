@@ -1,0 +1,23 @@
+# 编译生成的可执行文件
+yas
+yis
+ssim
+psim
+hcl2c
+
+# 编译生成的中间文件（对象文件、语法文件等）
+*.o
+*.yo
+lex.yy.c
+hcl.tab.c
+hcl.tab.h
+yas-grammar.c
+seq-std.c
+pipe-std.c
+
+# 生成的驱动测试文件（由 make drivers 生成）
+sim/pipe/*driver.ys
+sim/pipe/*driver.yo
+
+# 生成的基准测试 .yo 文件（由 make test 生成）
+sim/y86-code/*.yo
