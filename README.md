@@ -7,7 +7,7 @@
 - [x] [Bomb Lab]
 - [x] [Attack Lab]
 - [ ] [Buffer Lab]
-- [ ] [Architecture Lab]
+- [x] [Architecture Lab]
 - [ ] [Cache Lab]
 - [ ] [Performance Lab]
 - [ ] [Shell Lab]

@@ -803,8 +803,8 @@ void sim_log( const char *format, ... ) {
  **********************/
 
 /* Hack for SunOS */
-extern int matherr();
-int *tclDummyMathPtr = (int *) matherr;
+// extern int matherr();
+// int *tclDummyMathPtr = (int *) matherr;
 
 static char tcl_msg[256];
 
@@ -1599,6 +1599,3 @@ void do_stall_check()
     ex_mem_state->op = pipe_cntl("MEM", gen_M_stall(), gen_M_bubble());
     mem_wb_state->op = pipe_cntl("WB", gen_W_stall(), gen_W_bubble());
 }
-
-
-
