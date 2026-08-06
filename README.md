@@ -8,7 +8,7 @@
 - [x] [Attack Lab]
 - [ ] [Buffer Lab]
 - [x] [Architecture Lab]
-- [ ] [Cache Lab]
+- [x] [Cache Lab]
 - [ ] [Performance Lab]
 - [ ] [Shell Lab]
 - [ ] [Malloc Lab]
